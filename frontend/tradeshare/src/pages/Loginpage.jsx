@@ -4,7 +4,7 @@ import axios from "axios"
 const Loginpage = () => {
   const [data, setData] = useState(
     {
-      name:'',
+      username:'',
       password:'',
     }
   )
@@ -39,7 +39,7 @@ const Loginpage = () => {
       <br/>
       <label>
         Enter your name:
-        <input name="name" value={data.name} onChange={handleChange} className="border border-gray-300" type="text"/>
+        <input name="username" value={data.username} onChange={handleChange} className="border border-gray-300" type="text"/>
       </label>
       
       <label>

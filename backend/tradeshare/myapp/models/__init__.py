@@ -1,2 +1,2 @@
 from .Trader import *
-from .User import *
+from .user import *
