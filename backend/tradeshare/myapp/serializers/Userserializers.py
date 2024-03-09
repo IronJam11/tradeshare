@@ -4,11 +4,11 @@ from myapp.models import Client, Trader
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = ['id', 'username', 'email', 'password', 'pan_type', 'trading_history', 'age']
+        fields = ['id', 'username', 'email', 'password', 'pan_card', 'trading_history', 'age']
         extra_kwargs = {
             'password': {'write_only': True},
             'email': {'required': True},
-            'pan_type': {'required': True}
+            'pan_card': {'required': True}
         }
 
     def create(self, validated_data):
@@ -18,11 +18,10 @@ class ClientSerializer(serializers.ModelSerializer):
 class TraderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trader
-        fields = ['id', 'username', 'email', 'password', 'pan_type', 'trading_history', 'experience', 'trading_strategy', 'average_return', 'premium_price', 'subscribers', 'highest_profit']
+        fields = ['id', 'username', 'email', 'password', 'pan_card', 'trading_history', 'experience', 'trading_strategy', 'average_return', 'premium_price', 'subscribers', 'highest_profit']
         extra_kwargs = {
             'password': {'write_only': True},
             'email': {'required': True},
-            'pan_type': {'required': True}
         }
 
     def create(self, validated_data):

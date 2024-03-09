@@ -6,7 +6,9 @@ const RegisterForm = () => {
     username: '',
     password: '',
     email: '',
+    age: '',
     pan_card: '',
+    isClient: true, // Default to client registration
   });
 
   const handleChange = (event) => {
@@ -20,10 +22,12 @@ const RegisterForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/register/', formData);
+      const endpoint = formData.isClient ? '/client/register/' : '/trader/register/';
+      const response = await axios.post('http://localhost:8000' + endpoint, formData);
       console.log(response.data);
-      if(response.status===200){
-        navigate("/dashboard")
+      // Redirect to dashboard upon successful registration
+      if (response.status === 201) {
+        navigate('/dashboard');
       }
     } catch (error) {
       console.error(error);
@@ -33,6 +37,24 @@ const RegisterForm = () => {
   return (
     <div className="container mx-auto max-w-md mt-10 p-6 border border-gray-300 rounded-lg">
       <h2 className="text-2xl font-bold mb-4">Register</h2>
+      <div className="mb-4">
+        <button
+          className={` font-bold py-2 px-4 rounded ${
+            formData.isClient ? 'bg-blue-500 hover:bg-blue-600 text-white' : ''
+          }`}
+          onClick={() => setFormData({ ...formData, isClient: true })}
+        >
+          Client
+        </button>
+        <button
+          className={`font-bold py-2 px-4 rounded ${
+            !formData.isClient ? 'bg-blue-500 hover:bg-blue-600 text-white' : ''
+          }`}
+          onClick={() => setFormData({ ...formData, isClient: false })}
+        >
+          Trader
+        </button>
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
@@ -74,6 +96,21 @@ const RegisterForm = () => {
             value={formData.email}
             onChange={handleChange}
             required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="age">
+            Age:
+          </label>
+          <input
+            className="border border-gray-300 p-2 w-full rounded-md"
+            type="number"
+            id="age"
+            name="age"
+            value={formData.age}
+            onChange={handleChange}
+            required={!formData.isClient} // Age is required only for trader registration
+            disabled={formData.isClient} // Disable age field for client registration
           />
         </div>
         <div className="mb-4">

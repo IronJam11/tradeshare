@@ -1,57 +1,113 @@
-import { useState } from "react"
-import axios from "axios"
+import { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const Loginpage = () => {
-  const navigate=useNavigate()
-  const [data, setData] = useState(
-    {
-      username:'',
-      password:'',
-    }
-  )
-  async function Verify()
-  {
-    
+
+const LoginPage = () => {
+  const navigate = useNavigate();
+  const [isClient, setIsClient] = useState(true);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  console.log(isClient)
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/login/', data);
+      const endpoint = formData.isClient ? '/client/login/' : '/trader/login/';
+      const response = await axios.post('http://localhost:8000' + endpoint, formData);
       console.log(response.data);
-      if(response.status===200){
-        navigate("/dashboard")
+      if (response.status === 200) {
+        navigate("/dashboard");
       }
     } catch (error) {
       console.error(error);
-      // Handle login error
     }
+  };
 
-  }
-  function handleChange(event)
-  {
-    const { name, value } = event.target;
-        setData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-  }
   return (
-    <div className="justify-center items-center">
-      <div className="bg-red-400">
-      <p> LOGIN to Trade share </p> 
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-red-400 py-4 px-8 mb-8 rounded-md">
+        <h1 className="text-xl font-semibold text-white">
+          Login to Trade Share
+        </h1>
       </div>
-      <br/>
-      <label>
-        Enter your name:
-        <input name="username" value={data.username} onChange={handleChange} className="border border-gray-300" type="text"/>
-      </label>
-      
-      <label>
-        Enter your Password
-        <input name="password" type="password" value={data.password} onChange={handleChange} className="border border-gray-300" />
-      </label>
-      <br/>
-      <button  onClick={Verify} className="border border-gray-300"type="submit"> Verify </button>
-
+      <div className="mb-4">
+        <button
+          className={`font-bold py-2 px-4 rounded ${
+            isClient ? "bg-black text-white" : ""
+          }`}
+          onClick={() => setIsClient(true)}
+        >
+          Client
+        </button>
+        <button
+          className={` font-bold py-2 px-4 rounded ${
+            !isClient ? "bg-black text-white" : ""
+          }`}
+          onClick={() => setIsClient(false)}
+        >
+          Trader
+        </button>
+      </div>
+      <form
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        onSubmit={handleLogin}
+      >
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="email"
+          >
+            Email
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="email"
+            type="email"
+            placeholder="Enter your email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="password"
+          >
+            Password
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="password"
+            type="password"
+            placeholder="Enter your password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="flex items-center justify-between">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+            onClick={handleLogin}
+          >
+            Login
+          </button>
+        </div>
+      </form>
     </div>
-  )
-}
+  );
+};
 
-export default Loginpage
+export default LoginPage;

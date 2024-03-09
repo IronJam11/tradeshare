@@ -9,11 +9,11 @@ from myapp.serializers import ClientSerializer, TraderSerializer
 class ClientLoginAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
-        username = request.data.get("username")
+        email = request.data.get("email")
         password = request.data.get("password")
 
         # Authenticate client
-        client = authenticate(username=username, password=password)
+        client = authenticate(email=email, password=password)
         if client is None:
             return Response(
                 data={"status": "error", "message": "Invalid username or password"},
@@ -67,11 +67,10 @@ class ClientRegisterAPIView(APIView):
 class TraderLoginAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
-        username = request.data.get("username")
+        email = request.data.get("email")
         password = request.data.get("password")
-
         # Authenticate trader
-        trader = authenticate(username=username, password=password)
+        trader = authenticate(email=email, password=password)
         if trader is None:
             return Response(
                 data={"status": "error", "message": "Invalid username or password"},
@@ -96,7 +95,7 @@ class TraderRegisterAPIView(APIView):
         email = request.data.get("email")
         age = request.data.get("age")
         pan_card = request.data.get("pan_card")
-        if not username or not password or not email:
+        if not username or not password or not email or not age or not pan_card:
             return Response(
                 {"error": "Username, password, and email are required"},
                 status=status.HTTP_400_BAD_REQUEST,

@@ -37,9 +37,10 @@ class Client(BaseUser):
     age = models.PositiveIntegerField()
 
 class Trader(BaseUser):
-    experience = models.PositiveIntegerField()
-    trading_strategy = models.TextField()
-    average_return = models.FloatField()
-    premium_price = models.DecimalField(max_digits=10, decimal_places=2)
-    subscribers = models.PositiveIntegerField()
-    highest_profit = models.DecimalField(max_digits=10, decimal_places=2)
+    age = models.PositiveIntegerField(null=True)
+    experience = models.PositiveIntegerField(null=True)
+    trading_strategy = models.TextField(null=True)
+    average_return = models.FloatField(null=True)
+    premium_price = models.DecimalField(max_digits=10, decimal_places=2,null=True)
+    subscribers = models.PositiveIntegerField(null=True)
+    highest_profit = models.DecimalField(max_digits=10, decimal_places=2,null=True)
