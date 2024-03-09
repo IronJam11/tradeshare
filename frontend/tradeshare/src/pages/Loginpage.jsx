@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import axios from "axios"
 
 const Loginpage = () => {
   const [data, setData] = useState(
@@ -8,8 +8,18 @@ const Loginpage = () => {
       password:'',
     }
   )
-  function Verify()
+  async function Verify()
   {
+    
+    try {
+      const response = await axios.post('http://localhost:8000/login', data);
+      console.log(response.data);
+      // Handle successful login
+    } catch (error) {
+      console.error(error);
+      // Handle login error
+    }
+
     console.log(data);
      
   }
