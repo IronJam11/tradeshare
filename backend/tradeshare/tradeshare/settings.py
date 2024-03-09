@@ -54,7 +54,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-AUTH_USER_MODEL = 'myapp.User'
+AUTH_USER_MODEL = 'myapp.BaseUser'
 ROOT_URLCONF = 'tradeshare.urls'
 
 REST_FRAMEWORK = {

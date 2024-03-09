@@ -1,18 +1,14 @@
 from django.urls import path
 from myapp.views import (
-    CustomUserListCreate,
-    CustomUserRetrieveUpdateDestroy,
-    LoginAPIView,
-    RegisterAPIView
+    ClientLoginAPIView,
+    ClientRegisterAPIView,
+    TraderLoginAPIView,
+    TraderRegisterAPIView,
 )
 
 urlpatterns = [
-    path("users/", CustomUserListCreate.as_view(), name="user-list-create"),
-    path(
-        "users/<int:pk>/",
-        CustomUserRetrieveUpdateDestroy.as_view(),
-        name="user-retrieve-update-destroy",
-    ),
-    path("login/", LoginAPIView.as_view(), name="login"),
-    path('register/', RegisterAPIView.as_view(), name='register'),
+    path("client/login/", ClientLoginAPIView.as_view(), name="client_login"),
+    path("client/register/", ClientRegisterAPIView.as_view(), name="client_register"),
+    path("trader/login/", TraderLoginAPIView.as_view(), name="trader_login"),
+    path("trader/register/", TraderRegisterAPIView.as_view(), name="trader_register"),
 ]

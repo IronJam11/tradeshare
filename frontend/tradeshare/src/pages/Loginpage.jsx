@@ -16,7 +16,7 @@ const Loginpage = () => {
       const response = await axios.post('http://localhost:8000/login/', data);
       console.log(response.data);
       if(response.status===200){
-        navigate("/")
+        navigate("/dashboard")
       }
     } catch (error) {
       console.error(error);
