@@ -4,25 +4,19 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from myapp.models import User
-
+import json
 
 def Authenticate(username):
     # print("here")
-    try:
-        user = User.objects.get(username=username)
-        return user
 
-    except:
-        return Response(
-            {"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED
-        )
+    user = User.objects.get(username=username)
+    return user
 
 
 class LoginAPIView(APIView):
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
-        print(username, password)
         # Authenticate user
         user = Authenticate(username=username)
         print(user)
@@ -30,8 +24,15 @@ class LoginAPIView(APIView):
         if user:
             # Login the user
             login(request, user)
+            user_data = {
+                "username": username
+                # Add other user attributes as needed
+            }
             # Return the session ID instead of token
-            return Response({"session_id": request.session.session_key})
+            user_json = json.dumps(user_data)
+            return Response(
+                {"session_id": request.session.session_key,"user":user_json},
+            )
         else:
             return Response(
                 {"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED

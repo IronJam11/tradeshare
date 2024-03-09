@@ -12,16 +12,14 @@ const Loginpage = () => {
   {
     
     try {
-      const response = await axios.post('http://localhost:8000/login', data);
-      console.log(response.data);
+      const response = await axios.post('http://localhost:8000/login/', data);
+      console.log(response);
       // Handle successful login
     } catch (error) {
       console.error(error);
       // Handle login error
     }
 
-    console.log(data);
-     
   }
   function handleChange(event)
   {
