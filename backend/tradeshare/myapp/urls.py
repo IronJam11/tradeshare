@@ -12,6 +12,8 @@ from myapp.views import (
     ClientRetrieveUpdateDestroy,
     TraderListCreate,
     TraderRetrieveUpdateDestroy,
+    SubscriptionListCreate,
+    SubscriptionRetrieveUpdateDestroy,
 )
 
 urlpatterns = [
@@ -30,5 +32,15 @@ urlpatterns = [
     path("traders/", TraderListCreate.as_view(), name="trader-list"),
     path(
         "traders/<int:pk>/", TraderRetrieveUpdateDestroy.as_view(), name="trader-detail"
+    ),
+    path(
+        "subscriptions/",
+        SubscriptionListCreate.as_view(),
+        name="subscription-list-create",
+    ),
+    path(
+        "subscriptions/<int:pk>/",
+        SubscriptionRetrieveUpdateDestroy.as_view(),
+        name="subscription-retrieve-update-destroy",
     ),
 ]
