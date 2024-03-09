@@ -1,7 +1,8 @@
 import { useState } from "react"
 import axios from "axios"
-
+import { useNavigate } from "react-router-dom";
 const Loginpage = () => {
+  const navigate=useNavigate()
   const [data, setData] = useState(
     {
       username:'',
@@ -13,8 +14,10 @@ const Loginpage = () => {
     
     try {
       const response = await axios.post('http://localhost:8000/login/', data);
-      console.log(response);
-      // Handle successful login
+      console.log(response.data);
+      if(response.status===200){
+        navigate("/")
+      }
     } catch (error) {
       console.error(error);
       // Handle login error
