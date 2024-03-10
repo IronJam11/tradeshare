@@ -38,7 +38,6 @@ class TraderSerializer(serializers.ModelSerializer):
             "experience",
             "trading_strategy",
             "average_return",
-            "subscribers",
             "highest_profit",
         ]
         extra_kwargs = {
