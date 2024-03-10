@@ -1,21 +1,11 @@
-from django.urls import path
-from myapp.views import (
-    ClientLoginAPIView,
-    ClientRegisterAPIView,
-    TraderLoginAPIView,
-    TraderRegisterAPIView,
-    TradeListView,
-    PortfolioListView,
-    TransactionListView,
-    ClientListCreate,
-    ClientRetrieveUpdateDestroy,
-    TraderListCreate,
-    TraderRetrieveUpdateDestroy,
-    SubscriptionListCreate,
-    SubscriptionRetrieveUpdateDestroy,
-    OfferingListCreateAPIView,
-    OfferingRetrieveUpdateDestroyAPIView,
-)
+from django.urls import path, include
+from myapp.views import *
+
+from rest_framework import routers
+
+router = routers.SimpleRouter()
+
+router.register(r'subscription', SubscriptionViewSet, basename='subscription')
 
 urlpatterns = [
     path("client/login/", ClientLoginAPIView.as_view(), name="client_login"),
@@ -41,14 +31,5 @@ urlpatterns = [
     path(
         "traders/<int:pk>/", TraderRetrieveUpdateDestroy.as_view(), name="trader-detail"
     ),
-    path(
-        "subscriptions/",
-        SubscriptionListCreate.as_view(),
-        name="subscription-list-create",
-    ),
-    path(
-        "subscriptions/<int:pk>/",
-        SubscriptionRetrieveUpdateDestroy.as_view(),
-        name="subscription-retrieve-update-destroy",
-    ),
+    path('', include(router.urls))
 ]

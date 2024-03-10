@@ -40,6 +40,14 @@ class BaseUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
 
+    is_staff = models.BooleanField(
+        default=True
+    )
+
+    is_superuser = models.BooleanField(
+        default=True
+    )
+
     objects = CustomUserManager()
 
     def __str__(self):
@@ -50,6 +58,9 @@ class Client(BaseUser):
     age = models.PositiveIntegerField()
     is_client = models.BooleanField(default=True)
 
+
+    class Meta:
+        verbose_name_plural = "Clients"
 
 class Trader(BaseUser):
     
