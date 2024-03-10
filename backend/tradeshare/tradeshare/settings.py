@@ -87,6 +87,10 @@ TEMPLATES = [
 WSGI_APPLICATION = 'tradeshare.wsgi.application'
 
 
+# Stripe settings
+
+
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -96,7 +100,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'tradeshare',
         'USER': 'postgres',
-        'PASSWORD': 'hardik',
+        'PASSWORD': 'Barkha12345',
         'HOST': 'localhost',
         'PORT': '5432',
     }

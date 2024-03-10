@@ -15,8 +15,10 @@ from myapp.views import (
     SubscriptionRetrieveUpdateDestroy,
     OfferingListCreateAPIView,
     OfferingRetrieveUpdateDestroyAPIView,
+    
 )
 
+from myapp.views.payment import create_payment_intent
 urlpatterns = [
     path("client/login/", ClientLoginAPIView.as_view(), name="client_login"),
     path("client/register/", ClientRegisterAPIView.as_view(), name="client_register"),
@@ -51,4 +53,5 @@ urlpatterns = [
         SubscriptionRetrieveUpdateDestroy.as_view(),
         name="subscription-retrieve-update-destroy",
     ),
+    path('api/create-payment-intent', create_payment_intent, name='create-payment-intent'),
 ]
