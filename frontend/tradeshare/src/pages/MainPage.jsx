@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
-import Navbar from '../components/Navbar/Navbar';
-import Stocks from '../components/stocks/Stocks';
-import Trades from '../components/trades/Trade';
-import Sidebar from '../components/sidebar/Sidebar';
-import LogoutButton from '../components/logout/Logout';
+import React, { useState, useEffect } from "react";
+import Navbar from "../components/Navbar/Navbar";
+import Stocks from "../components/stocks/Stocks";
+import Trades from "../components/trades/Trade";
+import Sidebar from "../components/sidebar/Sidebar";
+import Traders from "../components/traders/traders";
+import Offerings from "../components/offerings/offerings";
 
 const MainPage = () => {
-  const [selectedOption, setSelectedOption] = useState('home');
+  const [isClient, setIsClient] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("home");
+  const currentUserData = localStorage.getItem("currentUser");
+  const currentUser = JSON.parse(currentUserData);
+
+  useEffect(() => {
+    // Check if currentUser exists and is_client field is true
+    if (currentUser && currentUser.is_client === true) {
+      setIsClient(true);
+    }
+  }, [currentUser]);
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
@@ -20,13 +31,17 @@ const MainPage = () => {
       {/* Main content */}
       <div className="flex flex-1">
         {/* Sidebar */}
-        <Sidebar selectedOption={selectedOption} onOptionChange={handleOptionChange} />
+        <Sidebar
+          selectedOption={selectedOption}
+          onOptionChange={handleOptionChange}
+          isClient={isClient}
+        />
 
-        {/* Content area */}
         <div className="flex-1 p-4">
-          {/* Render the selected component based on the selectedOption state */}
-          {selectedOption === 'home' && <Trades />}
-          {selectedOption === 'stocks' && <Stocks />}
+          {selectedOption === "home" && <Trades />}
+          {selectedOption === "stocks" && <Stocks />}
+          {selectedOption === "rankings" && <Traders />}
+          {selectedOption === "offerings" && <Offerings />}
         </div>
       </div>
     </div>

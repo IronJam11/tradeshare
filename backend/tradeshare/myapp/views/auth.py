@@ -44,6 +44,7 @@ class ClientRegisterAPIView(APIView):
         email = request.data.get("email")
         age = request.data.get("age")
         pan_card = request.data.get("pan_card")
+
         if not username or not password or not email or not age:
             return Response(
                 {"error": "All fields are required"},
@@ -55,19 +56,17 @@ class ClientRegisterAPIView(APIView):
             return Response(
                 {"error": "Username already exists"}, status=status.HTTP_400_BAD_REQUEST
             )
-
-        # Create a serializer instance with the request data
         serializer = ClientSerializer(data=request.data)
-
-        # Check if the serializer is valid
         if serializer.is_valid():
             # Save the serializer data to create a new client
             client = serializer.save()
+            response_data = serializer.data
+            response_data["is_client"] = True  # Add is_client field to response
             return Response(
                 {
                     "success": True,
                     "message": "User registered successfully",
-                    "user": ClientSerializer(client).data,
+                    "user": response_data,
                 },
                 status=status.HTTP_201_CREATED,
             )
