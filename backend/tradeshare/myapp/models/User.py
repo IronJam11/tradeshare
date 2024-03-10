@@ -73,4 +73,8 @@ class Trader(BaseUser):
     )
     highest_profit = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     is_trader = models.BooleanField(default=True)
+    total_shares = models.PositiveIntegerField(null=True)
+    winrate = models.FloatField(null=True)
+    total_trades = models.PositiveIntegerField(null=True)
+    total_Gain = models.PositiveIntegerField(null=True)
 

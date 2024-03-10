@@ -23,14 +23,22 @@ const StocksGraph = () => {
     fetchData();
   }, []); // Empty dependency array ensures the effect runs only once on component mount
 
+  const formattedData = timeSeriesData
+    ? Object.entries(timeSeriesData).map(([date, values]) => ({
+        date,
+        highestPrice: parseFloat(values['2. high']),
+        currentPrice: parseFloat(values['4. close']),
+      }))
+    : null;
+
   return (
     <div className="container mx-auto">
       <h2 className="text-2xl font-bold mb-4">Stocks</h2>
-      {timeSeriesData ? (
+      {formattedData ? (
         <LineChart
           width={800}
           height={400}
-          data={Object.entries(timeSeriesData).map(([date, values]) => ({ date, ...values }))}
+          data={formattedData}
           margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -38,10 +46,8 @@ const StocksGraph = () => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="1. open" stroke="#8884d8" />
-          <Line type="monotone" dataKey="2. high" stroke="#82ca9d" />
-          <Line type="monotone" dataKey="3. low" stroke="#ffc658" />
-          <Line type="monotone" dataKey="4. close" stroke="#ff7300" />
+          <Line type="monotone" dataKey="highestPrice" stroke="#8884d8" name="Highest Price" />
+          <Line type="monotone" dataKey="currentPrice" stroke="#82ca9d" name="Current Price" />
         </LineChart>
       ) : (
         <p>Loading...</p>

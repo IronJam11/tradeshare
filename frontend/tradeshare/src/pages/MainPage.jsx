@@ -8,6 +8,7 @@ import Offerings from "../components/offerings/offerings";
 import Graph from "../components/stocks/WinGraph";
 import ProfitGraph from "../components/stocks/Profitpercentagegraph";
 import LineChartComponent from "../components/stocks/LineGraph";
+import StocksGraph from "../components/stocks/StocksGraph";
 
 const MainPage = () => {
   const [isClient, setIsClient] = useState(false);
@@ -47,6 +48,7 @@ const MainPage = () => {
           {selectedOption === "offerings" && <Offerings />}
         </div>
       </div>
+      <StocksGraph/>
     </div>
   );
 };

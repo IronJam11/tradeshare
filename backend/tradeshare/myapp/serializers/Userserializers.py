@@ -28,22 +28,7 @@ class ClientSerializer(serializers.ModelSerializer):
 class TraderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trader
-        fields = [
-            "id",
-            "username",
-            "email",
-            "password",
-            "pan_card",
-            "trading_history",
-            "experience",
-            "trading_strategy",
-            "average_return",
-            "highest_profit",
-        ]
-        extra_kwargs = {
-            "password": {"write_only": True},
-            "email": {"required": True},
-        }
+        fields = "__all__"
 
     def create(self, validated_data):
         trader = Trader.objects.create_user(**validated_data)
