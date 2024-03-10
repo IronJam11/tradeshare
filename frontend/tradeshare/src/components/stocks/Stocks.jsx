@@ -21,11 +21,9 @@ const Stocks = () => {
   const currentUserData = localStorage.getItem("currentUser");
   const currentUser = JSON.parse(currentUserData);
   if (currentUserData) {
-    // console.log(currentUser.id);
   } else {
-    // console.log("No currentUser data found in localStorage");
+
   }
-  //   console.log(currentUser.id);
   const [stockData, setStockData] = useState(null);
   const [selectedStock, setSelectedStock] = useState(null);
   useEffect(() => {
@@ -54,27 +52,20 @@ const Stocks = () => {
 
   const handleBuySubmit = async (formData) => {
     try {
-      // Prepare the trade data
       const tradeData = {
-        user: currentUser.id, // Assuming currentUser has the user ID
+        user: currentUser.id,
         stock_symbol: "IBM",
         stock_name: "APPLE",
         quantity: formData.quantity,
         price: formData.price,
-        status: "pending", // Assuming the status is initially set to "pending"
+        status: "pending",
       };
 
-      // Make a POST request to the backend API
       const response = await dispatch(createTrade(tradeData));
-
-      // Handle the response
       console.log("Trade submitted successfully:", response);
-
-      // Close the modal after submission
       setSelectedStock(null);
     } catch (error) {
       console.error("Error submitting trade:", error);
-      // Handle error appropriately
     }
   };
 
@@ -83,7 +74,7 @@ const Stocks = () => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto overflow-y-scroll h-[80vh]">
       <h2 className="text-2xl font-bold mb-4">Stocks Data</h2>
       <div className="flex flex-col">
         {stockData ? (
