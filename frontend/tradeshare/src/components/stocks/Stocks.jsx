@@ -76,7 +76,7 @@ const Stocks = () => {
   };
 
   return (
-    <div className="container mx-auto overflow-y-scroll h-[80vh]">
+    <div className="container mx-auto w-[90%] overflow-y-scroll no-scrollbar h-[80vh]">
       <h2 className="text-2xl font-bold mb-4">Stocks Data</h2>
       <div className="flex flex-col">
         {stockData ? (

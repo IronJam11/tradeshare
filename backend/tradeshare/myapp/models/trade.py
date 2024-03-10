@@ -11,7 +11,6 @@ class Trade(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20)
     is_buy = models.BooleanField(blank=False, null=False, default=True)
-    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.user.username} - {self.stock_symbol} - {self.timestamp}"

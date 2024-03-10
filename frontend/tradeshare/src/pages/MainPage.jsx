@@ -47,9 +47,6 @@ const MainPage = () => {
           {selectedOption === "offerings" && <Offerings />}
         </div>
       </div>
-      <Graph winPercentage={89} />
-      <ProfitGraph profitPercentage={56}/>
-      <LineChartComponent/>
     </div>
   );
 };

@@ -33,7 +33,7 @@ const Trades = () => {
   }
 
   return (
-    <div className="overflow-y-scroll h-[80vh] w-[90%] mx-auto">
+    <div className="overflow-y-scroll h-[80vh] w-[90%] mt-4 no-scrollbar mx-auto">
       <div className="flex flex-col gap-4">
         <div className="bg-gray-700 p-4 flex gap-4 justify-evenly text-white">
           <div>Stock Symbol</div>
@@ -55,7 +55,7 @@ const Trades = () => {
             <p className="text-white">
               {new Date(trade.timestamp).toLocaleDateString()}
             </p>
-            <p className="text-white">${trade.quantity * trade.price}</p>
+            <p className="text-white">${Number((trade.quantity) * (trade.price)).toFixed(2)}</p>
           </div>
         ))}
       </div>

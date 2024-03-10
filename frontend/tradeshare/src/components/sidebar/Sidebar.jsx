@@ -66,7 +66,7 @@ const Sidebar = ({ selectedOption, onOptionChange, isClient }) => {
           >
             <div className="flex gap-4 justify-evenly items-center">
               <FaEye />
-              <h3>Wishlists</h3>
+              <h3>EFTS</h3>
             </div>
           </li>
         </ul>

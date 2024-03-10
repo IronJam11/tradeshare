@@ -17,12 +17,12 @@ const BuyModal = ({ show, onClose, onSubmit, stock }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-75 ${
+      className={`fixed top-0 bg-black left-0 w-full h-full flex justify-center items-center bg-opacity-75 ${
         show ? "" : "hidden"
       }`}
     >
       <div className="flex w-3/4">
-        <div className="bg-black w-1/2 rounded-lg shadow-lg p-8 mr-8">
+        <div className="bg-white w-1/2 rounded-lg shadow-lg p-8 mr-8">
           <span
             className="absolute top-0 right-0 cursor-pointer text-gray-700"
             onClick={onClose}
@@ -65,7 +65,7 @@ const BuyModal = ({ show, onClose, onSubmit, stock }) => {
             </button>
           </div>
         </div>
-        <div className="w-1/2 bg-black">
+        <div className="w-1/2 bg-white">
           <LineChartComponent
             highestPrice={stock.highestPrice}
             currentPrice={stock.c}

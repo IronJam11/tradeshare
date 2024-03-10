@@ -41,10 +41,4 @@ class TradeViewSet(viewsets.ModelViewSet):
             status=status,
         )
 
-        portfolio = Portfolio.objects.get(user=user)
-        portfolio.amount_invested += quantity * price
-        portfolio.save()
-
-        if isinstance(user, Trader):
-            notify_subscribers(user, trade)
 
