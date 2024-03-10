@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-const Stocks = () => {
+const StocksGraph = () => {
   const [timeSeriesData, setTimeSeriesData] = useState(null);
   const API_KEY = 'NLC71RZQZV62Q4RQ';
   const symbol = 'AAPL'; 
-  const endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${API_KEY}`;
+  const endpoint = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=demo`;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,4 +50,4 @@ const Stocks = () => {
   );
 };
 
-export default Stocks;
+export default StocksGraph;

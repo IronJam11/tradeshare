@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import BuyModal from "../../modals/BuyModal";
+import { setCurrentUser } from "../../features/userSlice";
 
 const API_KEY = "cnmfdnpr01qtghmdiolgcnmfdnpr01qtghmdiom0";
 const symbols = [
@@ -16,6 +17,14 @@ const symbols = [
 ];
 
 const Stocks = () => {
+  const currentUserData = localStorage.getItem("currentUser");
+  const currentUser = JSON.parse(currentUserData);
+  if (currentUserData) {
+    // console.log(currentUser.id);
+  } else {
+    // console.log("No currentUser data found in localStorage");
+  }
+//   console.log(currentUser.id);
   const [stockData, setStockData] = useState(null);
   const [selectedStock, setSelectedStock] = useState(null);
 
@@ -40,7 +49,7 @@ const Stocks = () => {
   }, []);
 
   const handleBuy = (stock) => {
-    console.log(stock)
+    console.log(stock);
     setSelectedStock(stock);
   };
 

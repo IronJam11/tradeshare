@@ -9,7 +9,7 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
-  console.log(isClient)
+  console.log(isClient);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -20,9 +20,14 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     try {
-      const endpoint = formData.isClient ? '/client/login/' : '/trader/login/';
-      const response = await axios.post('http://localhost:8000' + endpoint, formData);
+      const endpoint = formData.isClient ? "/client/login/" : "/trader/login/";
+      const response = await axios.post(
+        "http://localhost:8000" + endpoint,
+        formData
+      );
+      localStorage.setItem("currentUser", JSON.stringify(response.data.user));
       console.log(response.data);
+
       if (response.status === 200) {
         navigate("/dashboard");
       }
