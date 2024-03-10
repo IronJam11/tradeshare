@@ -46,6 +46,6 @@ class TradeViewSet(viewsets.ModelViewSet):
             notify_subscribers(user, trade)
 
 
-    @action(detail=False, methods=['post'])
-    def copy_trade(self, requset):
-        user = self.
+    # @action(detail=False, methods=['post'])
+    # def copy_trade(self, requset):
+    #     user = self.
