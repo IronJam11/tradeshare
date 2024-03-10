@@ -31,5 +31,6 @@ urlpatterns = [
     path(
         "traders/<int:pk>/", TraderRetrieveUpdateDestroy.as_view(), name="trader-detail"
     ),
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    
 ]
