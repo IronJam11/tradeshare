@@ -14,6 +14,7 @@ export const fetchTradesApi = () => {
 };
 
 export const createTradeApi = (newTrade) => {
+    console.log(newTrade)
   return axios.post("http://127.0.0.1:8000/trades/", newTrade, axiosConfig);
 };
 

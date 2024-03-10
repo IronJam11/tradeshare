@@ -8,7 +8,6 @@ const MainPage = () => {
     <div>
       <Navbar />
       <Stocks />
-      <StocksGraph />
       <Trades />
     </div>
   );

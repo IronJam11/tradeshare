@@ -7,7 +7,6 @@ import {
   deleteTradeApi,
 } from "../api/trade";
 
-
 // Define initial state
 const initialState = {
   trades: [],

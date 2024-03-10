@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import BuyModal from "../../modals/BuyModal";
 import { createTrade } from "../../features/tradeSlice";
+import { useDispatch } from "react-redux";
 const API_KEY = "cnmfdnpr01qtghmdiolgcnmfdnpr01qtghmdiom0";
 const symbols = [
   "AAPL",
@@ -16,6 +17,7 @@ const symbols = [
 ];
 
 const Stocks = () => {
+  const dispatch = useDispatch();
   const currentUserData = localStorage.getItem("currentUser");
   const currentUser = JSON.parse(currentUserData);
   if (currentUserData) {
@@ -26,7 +28,6 @@ const Stocks = () => {
   //   console.log(currentUser.id);
   const [stockData, setStockData] = useState(null);
   const [selectedStock, setSelectedStock] = useState(null);
-  console.log(stockData)
   useEffect(() => {
     const fetchStockData = async () => {
       try {
@@ -52,7 +53,6 @@ const Stocks = () => {
   };
 
   const handleBuySubmit = async (formData) => {
-    console.log(formData)
     try {
       // Prepare the trade data
       const tradeData = {
@@ -65,13 +65,10 @@ const Stocks = () => {
       };
 
       // Make a POST request to the backend API
-      const response = await axios.post(
-        "http://localhost:8000/trades/",
-        tradeData
-      );
+      const response = await dispatch(createTrade(tradeData));
 
       // Handle the response
-      console.log("Trade submitted successfully:", response.data);
+      console.log("Trade submitted successfully:", response);
 
       // Close the modal after submission
       setSelectedStock(null);
