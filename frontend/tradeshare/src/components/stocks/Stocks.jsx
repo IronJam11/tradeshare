@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import BuyModal from "../../modals/BuyModal";
-import { setCurrentUser } from "../../features/userSlice";
-
+import { createTrade } from "../../features/tradeSlice";
 const API_KEY = "cnmfdnpr01qtghmdiolgcnmfdnpr01qtghmdiom0";
 const symbols = [
   "AAPL",
@@ -24,10 +23,10 @@ const Stocks = () => {
   } else {
     // console.log("No currentUser data found in localStorage");
   }
-//   console.log(currentUser.id);
+  //   console.log(currentUser.id);
   const [stockData, setStockData] = useState(null);
   const [selectedStock, setSelectedStock] = useState(null);
-
+  console.log(stockData)
   useEffect(() => {
     const fetchStockData = async () => {
       try {
@@ -49,15 +48,37 @@ const Stocks = () => {
   }, []);
 
   const handleBuy = (stock) => {
-    console.log(stock);
     setSelectedStock(stock);
   };
 
-  const handleBuySubmit = (formData) => {
-    // Handle buy submission with formData
-    console.log("Buy submitted:", formData);
-    // Close the modal after submission
-    setSelectedStock(null);
+  const handleBuySubmit = async (formData) => {
+    console.log(formData)
+    try {
+      // Prepare the trade data
+      const tradeData = {
+        user: currentUser.id, // Assuming currentUser has the user ID
+        stock_symbol: "IBM",
+        stock_name: "APPLE",
+        quantity: formData.quantity,
+        price: formData.price,
+        status: "pending", // Assuming the status is initially set to "pending"
+      };
+
+      // Make a POST request to the backend API
+      const response = await axios.post(
+        "http://localhost:8000/trades/",
+        tradeData
+      );
+
+      // Handle the response
+      console.log("Trade submitted successfully:", response.data);
+
+      // Close the modal after submission
+      setSelectedStock(null);
+    } catch (error) {
+      console.error("Error submitting trade:", error);
+      // Handle error appropriately
+    }
   };
 
   const handleModalClose = () => {

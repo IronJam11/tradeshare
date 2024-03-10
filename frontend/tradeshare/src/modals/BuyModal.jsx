@@ -1,11 +1,12 @@
 import React from 'react';
 
 const BuyModal = ({ show, onClose, onSubmit, stock }) => {
+    console.log(stock)
   const [quantity, setQuantity] = React.useState('');
   const [totalPrice, setTotalPrice] = React.useState('');
 
   const handleBuySubmit = () => {
-    onSubmit({ quantity, price: stock.c });
+    onSubmit({ quantity:quantity, price:totalPrice, stock_symbol:stock.symbol });
     setQuantity('');
     setTotalPrice('');
   };
