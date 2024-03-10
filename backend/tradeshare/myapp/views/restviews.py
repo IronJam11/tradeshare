@@ -1,18 +1,13 @@
 
 
 from rest_framework import generics
-from myapp.models import Stock, Trade, Portfolio, Transaction
+from myapp.models import  Trade, Portfolio, Transaction
 from myapp.serializers import (
-    StockSerializer,
     TradeSerializer,
     PortfolioSerializer,
     TransactionSerializer,
 )
 
-
-class StockListView(generics.ListAPIView):
-    queryset = Stock.objects.all()
-    serializer_class = StockSerializer
 
 
 class TradeListView(generics.ListAPIView):

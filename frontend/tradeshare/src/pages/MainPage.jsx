@@ -1,10 +1,13 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-
+import Stocks from '../components/stocks/Stocks'
+import Trades from '../components/trades/Trade'
 const MainPage = () => {
   return (
     <div>
         <Navbar/>
+        <Stocks/>
+        <Trades/>
     </div>
   )
 }

@@ -1,11 +1,8 @@
 from rest_framework import serializers
-from myapp.models import Stock, Trade, Portfolio, Transaction
+from myapp.models import Trade, Portfolio, Transaction
 
 
-class StockSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Stock
-        fields = "__all__"
+
 
 
 class TradeSerializer(serializers.ModelSerializer):
