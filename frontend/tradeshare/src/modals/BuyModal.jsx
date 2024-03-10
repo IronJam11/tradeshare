@@ -1,9 +1,10 @@
 import React from "react";
+import LineChartComponent from "../components/stocks/LineGraph";
 
 const BuyModal = ({ show, onClose, onSubmit, stock }) => {
   const [quantity, setQuantity] = React.useState("");
   const [totalPrice, setTotalPrice] = React.useState("");
-
+    console.log(stock)
   const handleBuySubmit = () => {
     onSubmit({
       quantity: quantity,
@@ -20,47 +21,55 @@ const BuyModal = ({ show, onClose, onSubmit, stock }) => {
         show ? "" : "hidden"
       }`}
     >
-      <div className="bg-white w-1/2 rounded-lg shadow-lg p-8">
-        <span
-          className="absolute top-0 right-0 cursor-pointer text-gray-700"
-          onClick={onClose}
-        >
-          &times;
-        </span>
-        <h2 className="text-2xl font-bold mb-4">Buy {stock.name}</h2>
-        <p>Stock Symbol: {stock.symbol}</p>
-        <div className="mt-4">
-          <label className="block mb-2" htmlFor="quantity">
-            Quantity
-          </label>
-          <input
-            type="number"
-            id="quantity"
-            value={quantity}
-            onChange={(e) => {
-              setQuantity(e.target.value);
-              setTotalPrice(e.target.value * stock.c);
-            }}
-            className="border border-gray-300 rounded-md px-4 py-2 w-full"
-            placeholder="Quantity"
-          />
-        </div>
-        <div className="mt-4">
-          <p className="text-gray-600">Total Price: ${totalPrice}</p>
-        </div>
-        <div className="mt-6">
-          <button
-            onClick={handleBuySubmit}
-            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mr-2"
-          >
-            Buy
-          </button>
-          <button
+      <div className="flex w-3/4">
+        <div className="bg-black w-1/2 rounded-lg shadow-lg p-8 mr-8">
+          <span
+            className="absolute top-0 right-0 cursor-pointer text-gray-700"
             onClick={onClose}
-            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
           >
-            Cancel
-          </button>
+            &times;
+          </span>
+          <h2 className="text-2xl font-bold mb-4">Buy {stock.name}</h2>
+          <p>Stock Symbol: {stock.symbol}</p>
+          <div className="mt-4">
+            <label className="block mb-2" htmlFor="quantity">
+              Quantity
+            </label>
+            <input
+              type="number"
+              id="quantity"
+              value={quantity}
+              onChange={(e) => {
+                setQuantity(e.target.value);
+                setTotalPrice(e.target.value * stock.c);
+              }}
+              className="border border-gray-300 rounded-md px-4 py-2 w-full"
+              placeholder="Quantity"
+            />
+          </div>
+          <div className="mt-4">
+            <p className="text-gray-600">Total Price: ${totalPrice}</p>
+          </div>
+          <div className="mt-6">
+            <button
+              onClick={handleBuySubmit}
+              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mr-2"
+            >
+              Buy
+            </button>
+            <button
+              onClick={onClose}
+              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+        <div className="w-1/2 bg-black">
+          <LineChartComponent
+            highestPrice={stock.highestPrice}
+            currentPrice={stock.c}
+          />
         </div>
       </div>
     </div>

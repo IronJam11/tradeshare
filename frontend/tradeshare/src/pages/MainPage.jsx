@@ -5,6 +5,9 @@ import Trades from "../components/trades/Trade";
 import Sidebar from "../components/sidebar/Sidebar";
 import Traders from "../components/traders/traders";
 import Offerings from "../components/offerings/offerings";
+import Graph from "../components/stocks/WinGraph";
+import ProfitGraph from "../components/stocks/Profitpercentagegraph";
+import LineChartComponent from "../components/stocks/LineGraph";
 
 const MainPage = () => {
   const [isClient, setIsClient] = useState(false);
@@ -37,13 +40,16 @@ const MainPage = () => {
           isClient={isClient}
         />
 
-        <div className="flex-1 p-4">
+        <div className="w-[80%] mx-auto">
           {selectedOption === "home" && <Trades />}
           {selectedOption === "stocks" && <Stocks />}
           {selectedOption === "rankings" && <Traders />}
           {selectedOption === "offerings" && <Offerings />}
         </div>
       </div>
+      <Graph winPercentage={89} />
+      <ProfitGraph profitPercentage={56}/>
+      <LineChartComponent/>
     </div>
   );
 };

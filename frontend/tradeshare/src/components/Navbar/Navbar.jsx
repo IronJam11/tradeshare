@@ -38,7 +38,6 @@ const Navbar = () => {
             <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
           </div>
           <FaBell />
-          <LogoutButton/>
         </div>
       </div>
     </nav>

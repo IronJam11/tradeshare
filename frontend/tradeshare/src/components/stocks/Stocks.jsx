@@ -3,6 +3,7 @@ import axios from "axios";
 import BuyModal from "../../modals/BuyModal";
 import { createTrade } from "../../features/tradeSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const API_KEY = "cnmfdnpr01qtghmdiolgcnmfdnpr01qtghmdiom0";
 const symbols = [
   "AAPL",
@@ -18,6 +19,7 @@ const symbols = [
 
 const Stocks = () => {
   const dispatch = useDispatch();
+  const navigate =useNavigate();
   const currentUserData = localStorage.getItem("currentUser");
   const currentUser = JSON.parse(currentUserData);
   if (currentUserData) {
@@ -46,10 +48,10 @@ const Stocks = () => {
     fetchStockData();
   }, []);
 
-  const handleBuy = (stock) => {
+  const handleBuy = (stock,symbol) => {
     setSelectedStock(stock);
   };
-
+  console.log(selectedStock)
   const handleBuySubmit = async (formData) => {
     try {
       const tradeData = {
@@ -60,7 +62,7 @@ const Stocks = () => {
         price: formData.price,
         status: "pending",
       };
-
+        console.log(formData)
       const response = await dispatch(createTrade(tradeData));
       console.log("Trade submitted successfully:", response);
       setSelectedStock(null);
@@ -90,7 +92,7 @@ const Stocks = () => {
               <p className="text-gray-300">High Price: ${stock.h}</p>
               <button
                 className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mr-2"
-                onClick={() => handleBuy(stock)}
+                onClick={() => handleBuy(stock,symbols[index])}
               >
                 Buy
               </button>

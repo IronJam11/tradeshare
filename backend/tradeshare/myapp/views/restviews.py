@@ -23,6 +23,7 @@ class TradeListView(generics.ListCreateAPIView):
     serializer_class = TradeSerializer
 
     def post(self, request, *args, **kwargs):
+        print(request)
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
