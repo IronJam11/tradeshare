@@ -83,18 +83,17 @@ const Stocks = () => {
           stockData.map((stock, index) => (
             <div
               key={index}
-              className="bg-gray-800 w-full justify-evenly items-center text-white p-4 flex flex-wrap gap-4 shadow rounded mr-4 mb-4"
+              className="bg-[#202020] w-full justify-evenly items-center text-white p-4 flex flex-wrap gap-4 shadow rounded mr-4 mb-4"
             >
-              <h3 className="text-lg font-semibold">{symbols[index]}</h3>
+              <h3 className="text-[#5190D8] font-bold">{symbols[index]}</h3>
               <p className="text-gray-300">Current Price: ${stock.c}</p>
-              <p className="text-gray-300">Previous Close: ${stock.pc}</p>
               <p className="text-gray-300">Opening Price: ${stock.o}</p>
               <p className="text-gray-300">High Price: ${stock.h}</p>
               <button
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mr-2"
+                className="bg-[#1DB504] hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full mr-2"
                 onClick={() => handleBuy(stock,symbols[index])}
               >
-                Buy
+                Analyze
               </button>
             </div>
           ))

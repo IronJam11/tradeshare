@@ -48,7 +48,6 @@ const MainPage = () => {
           {selectedOption === "offerings" && <Offerings />}
         </div>
       </div>
-      <StocksGraph/>
     </div>
   );
 };
