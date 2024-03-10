@@ -1,5 +1,6 @@
 import React from "react";
 import { FaSearch, FaBell, FaUser } from "react-icons/fa";
+import LogoutButton from "../logout/Logout";
 
 const Navbar = () => {
   const currentUserData = localStorage.getItem("currentUser");
@@ -37,6 +38,7 @@ const Navbar = () => {
             <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
           </div>
           <FaBell />
+          <LogoutButton/>
         </div>
       </div>
     </nav>

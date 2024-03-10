@@ -56,18 +56,23 @@ class ClientRegisterAPIView(APIView):
                 {"error": "Username already exists"}, status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Create a new client
-        client = Client.objects.create_user(
-            username=username,
-            password=password,
-            email=email,
-            age=age,
-            pan_card=pan_card,
-        )
-        return Response(
-            {"message": "Client registered successfully"},
-            status=status.HTTP_201_CREATED,
-        )
+        # Create a serializer instance with the request data
+        serializer = ClientSerializer(data=request.data)
+
+        # Check if the serializer is valid
+        if serializer.is_valid():
+            # Save the serializer data to create a new client
+            client = serializer.save()
+            return Response(
+                {
+                    "success": True,
+                    "message": "User registered successfully",
+                    "user": ClientSerializer(client).data,
+                },
+                status=status.HTTP_201_CREATED,
+            )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class TraderLoginAPIView(APIView):
@@ -121,7 +126,18 @@ class TraderRegisterAPIView(APIView):
             age=age,
             pan_card=pan_card,
         )
-        return Response(
-            {"message": "Trader registered successfully"},
-            status=status.HTTP_201_CREATED,
-        )
+        serializer = TraderSerializer(data=request.data)
+
+        if serializer.is_valid():
+            user = serializer.save()
+            serialized_user = TraderSerializer(user).data
+            return Response(
+                {
+                    "success": True,
+                    "message": "User registered successfully",
+                    "user": serialized_user,
+                },
+                status=status.HTTP_201_CREATED,
+            )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

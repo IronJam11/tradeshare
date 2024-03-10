@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    email: '',
-    age: '',
-    pan_card: '',
+    username: "",
+    password: "",
+    email: "",
+    age: "",
+    pan_card: "",
     isClient: true, // Default to client registration
   });
 
@@ -22,12 +24,17 @@ const RegisterForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const endpoint = formData.isClient ? '/client/register/' : '/trader/register/';
-      const response = await axios.post('http://localhost:8000' + endpoint, formData);
-      console.log(response.data);
-      // Redirect to dashboard upon successful registration
+      const endpoint = formData.isClient
+        ? "/client/register/"
+        : "/trader/register/";
+      const response = await axios.post(
+        "http://localhost:8000" + endpoint,
+        formData
+      );
+      console.log(response);
+      localStorage.setItem("currentUser", JSON.stringify(response.data.user));
       if (response.status === 201) {
-        navigate('/dashboard');
+        navigate("/dashboard");
       }
     } catch (error) {
       console.error(error);
@@ -40,7 +47,7 @@ const RegisterForm = () => {
       <div className="mb-4">
         <button
           className={` font-bold py-2 px-4 rounded ${
-            formData.isClient ? 'bg-blue-500 hover:bg-blue-600 text-white' : ''
+            formData.isClient ? "bg-blue-500 hover:bg-blue-600 text-white" : ""
           }`}
           onClick={() => setFormData({ ...formData, isClient: true })}
         >
@@ -48,7 +55,7 @@ const RegisterForm = () => {
         </button>
         <button
           className={`font-bold py-2 px-4 rounded ${
-            !formData.isClient ? 'bg-blue-500 hover:bg-blue-600 text-white' : ''
+            !formData.isClient ? "bg-blue-500 hover:bg-blue-600 text-white" : ""
           }`}
           onClick={() => setFormData({ ...formData, isClient: false })}
         >
@@ -57,7 +64,10 @@ const RegisterForm = () => {
       </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="username"
+          >
             Username:
           </label>
           <input
@@ -71,7 +81,10 @@ const RegisterForm = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="password"
+          >
             Password:
           </label>
           <input
@@ -85,7 +98,10 @@ const RegisterForm = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="email"
+          >
             Email:
           </label>
           <input
@@ -99,7 +115,10 @@ const RegisterForm = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="age">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="age"
+          >
             Age:
           </label>
           <input
@@ -109,12 +128,14 @@ const RegisterForm = () => {
             name="age"
             value={formData.age}
             onChange={handleChange}
-            required={!formData.isClient} // Age is required only for trader registration
-            disabled={formData.isClient} // Disable age field for client registration
+            required
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="pan_card">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="pan_card"
+          >
             PAN Card:
           </label>
           <input
