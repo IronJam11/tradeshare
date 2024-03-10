@@ -9,7 +9,6 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
-  console.log(isClient);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -26,7 +25,6 @@ const LoginPage = () => {
         formData
       );
       localStorage.setItem("currentUser", JSON.stringify(response.data.user));
-      console.log(response.data);
 
       if (response.status === 200) {
         navigate("/dashboard");

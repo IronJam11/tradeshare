@@ -5,13 +5,12 @@ import { fetchTrades } from "../../features/tradeSlice";
 const Trades = () => {
   const dispatch = useDispatch();
   const trades = useSelector((state) => state.trades.trades);
-  console.log(trades)
   const loading = useSelector((state) => state.trades.loading);
   const error = useSelector((state) => state.trades.error);
 
   useEffect(() => {
     dispatch(fetchTrades());
-  }, [dispatch,fetchTrades]);
+  }, [dispatch, fetchTrades]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -31,18 +30,14 @@ const Trades = () => {
             <p className="text-gray-600">
               {trade.type} - {trade.quantity} shares
             </p>
-            <p className="text-gray-600">Price: ${trade.price}</p>
+            <p className="text-gray-600">Price: {trade.price}</p>
             <p className="text-gray-600">
               Date: {new Date(trade.date).toLocaleString()}
             </p>
             <p className="text-gray-600">Status: {trade.status}</p>
-            {/* Calculate total trade value */}
             <p className="text-gray-600">
               Total Value: ${trade.quantity * trade.price}
             </p>
-            {/* Display trade outcome */}
-            {/* Display trade performance metrics */}
-            {/* Provide trade actions */}
           </div>
         ))}
       </div>
