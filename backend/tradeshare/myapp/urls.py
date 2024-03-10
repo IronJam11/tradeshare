@@ -13,6 +13,8 @@ from myapp.views import (
     TraderRetrieveUpdateDestroy,
     SubscriptionListCreate,
     SubscriptionRetrieveUpdateDestroy,
+    OfferingListCreateAPIView,
+    OfferingRetrieveUpdateDestroyAPIView,
 )
 
 urlpatterns = [
@@ -21,6 +23,14 @@ urlpatterns = [
     path("trader/login/", TraderLoginAPIView.as_view(), name="trader_login"),
     path("trader/register/", TraderRegisterAPIView.as_view(), name="trader_register"),
     path("trades/", TradeListView.as_view(), name="trade_list"),
+    path(
+        "offerings/", OfferingListCreateAPIView.as_view(), name="offering-list-create"
+    ),
+    path(
+        "offerings/<int:pk>/",
+        OfferingRetrieveUpdateDestroyAPIView.as_view(),
+        name="offering-detail",
+    ),
     path("portfolio/", PortfolioListView.as_view(), name="portfolio_list"),
     path("transactions/", TransactionListView.as_view(), name="transaction_list"),
     path("clients/", ClientListCreate.as_view(), name="client-list"),
