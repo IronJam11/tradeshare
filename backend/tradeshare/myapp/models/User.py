@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 
 class CustomUserManager(BaseUserManager):
@@ -22,16 +22,21 @@ class CustomUserManager(BaseUserManager):
 
         return self.create_user(email, username, password, **extra_fields)
 
-class BaseUser(AbstractBaseUser):
+class BaseUser(AbstractBaseUser, PermissionsMixin):
     pan_card = models.CharField(max_length=20)
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=150, unique=True)  # Adding username field
+    username = models.CharField(max_length=150, unique=True) 
     trading_history = models.TextField(null=True, blank=True)
+    is_staff = models.BooleanField(default=False) 
+    is_superuser = models.BooleanField(default=False)  
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
     objects = CustomUserManager()
+
+    def __str__(self):
+        return self.email
 
 class Client(BaseUser):
     age = models.PositiveIntegerField()

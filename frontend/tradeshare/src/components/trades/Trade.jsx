@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTrades } from "../../features/tradeSlice";
 
@@ -9,10 +9,22 @@ const Trades = () => {
   const error = useSelector((state) => state.trades.error);
   const currentUserData = localStorage.getItem("currentUser");
   const currentUser = JSON.parse(currentUserData);
-
+  const [totalPrice, setTotalPrice] = useState(0);
+  const userTrades = trades.filter((trade) => trade.user === currentUser.id);
   useEffect(() => {
     dispatch(fetchTrades());
-  }, [dispatch]);
+  }, [fetchTrades]);
+
+  useEffect(() => {
+    let totalPrice = 0;
+    let highestprice = 0;
+    userTrades.forEach((trade) => {
+      totalPrice += trade.quantity * trade.price;
+    });
+    setTotalPrice(totalPrice);
+  }, [userTrades]);
+
+  console.log(totalPrice);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -21,9 +33,6 @@ const Trades = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-  // Filter trades based on currentUser.id
-  const userTrades = trades.filter((trade) => trade.user === currentUser.id);
 
   return (
     <div className="container mx-auto overflow-y-scroll h-[80vh]">
@@ -37,7 +46,7 @@ const Trades = () => {
             </p>
             <p className="text-gray-600">Price: {trade.price}</p>
             <p className="text-gray-600">
-              Date: {new Date(trade.date).toLocaleString()}
+              Date: {new Date(trade.timestamp).toLocaleString()}
             </p>
             <p className="text-gray-600">Status: {trade.status}</p>
             <p className="text-gray-600">
