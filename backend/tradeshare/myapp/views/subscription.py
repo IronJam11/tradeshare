@@ -54,3 +54,15 @@ class SubscriptionViewSet(viewsets.ModelViewSet):
             data=SubscriptionSerializer(subscription).data,
             status=status.HTTP_200_OK
         )
+
+    @action(detail=False, methods=['get'])
+    def get_subscriptions(self, request):
+        return Response(
+            data=SubscriptionSerializer(
+                Subscription.objects.filter(client=request.user),
+                many=True
+            ).data,
+            status=status.HTTP_200_OK
+        )
+    
+    

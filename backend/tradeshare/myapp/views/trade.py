@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from myapp.models import Trader, Trade
+from myapp.models import Trader, Trade, Portfolio
 from myapp.utils import notify_subscribers
 from myapp.serializers import TradeSerializer
 
@@ -38,14 +38,13 @@ class TradeViewSet(viewsets.ModelViewSet):
             quantity=quantity,
             price=price,
             timestamp=timestamp,
-            status=status
+            status=status,
         )
-        
+
+        portfolio = Portfolio.objects.get(user=user)
+        portfolio.amount_invested += quantity * price
+        portfolio.save()
 
         if isinstance(user, Trader):
             notify_subscribers(user, trade)
 
-
-    # @action(detail=False, methods=['post'])
-    # def copy_trade(self, requset):
-    #     user = self.
